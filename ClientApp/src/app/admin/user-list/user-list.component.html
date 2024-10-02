@@ -1,0 +1,30 @@
+<div class="bg-img">
+  <div class="outline">
+    <div class="table-css">
+      <h1 style="color: #E92827; text-align: center;">List of Users</h1>
+      <div class="table">
+        <table class="user-list">
+          <tr>
+            <th>Users</th>
+            <th  class="row-data">Edit Password</th>
+            <th  class="row-data">Delete User</th>
+          </tr>
+
+            <tr *ngFor="let user of users">
+
+              <td *ngIf="user.username !== 'admin'">{{user.username}}</td>
+              <td *ngIf="user.username !== 'admin'" class="row-data" (click)="onEdit(user.username)"><button>Edit</button></td>
+              <td *ngIf="user.username !== 'admin'" class="row-data" (click)="onDelete(user.username)"><button>Delete</button></td>
+
+            </tr>
+
+        </table>
+      </div>
+    </div>
+    <div>
+      <button class="btn-create" (click)="onAdd()">Add User</button>
+      <button (click)="Back()" class="btn-back">Back</button>
+    </div>
+  </div>
+</div>
+

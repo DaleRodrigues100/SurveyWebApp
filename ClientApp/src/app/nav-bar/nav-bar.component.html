@@ -1,0 +1,19 @@
+<nav>
+    <ul>
+      <li>
+        <a>Eazy Survey</a>
+      </li>
+      <li *ngIf="isAdmin()">
+        <a routerLink="/admin">Home</a>
+      </li>
+      <li *ngIf="!isAdmin()">
+        <a routerLink="/user/surveys">Home</a>
+      </li>
+      <li *ngIf="loggedin()" style="float: right;">
+        <a (click)='onLogout()' routerLink="/">Logout</a>
+      </li>
+      <li *ngIf="loggedin()" style="float: right;">
+        <a>{{loggedInUser}}</a>
+      </li>
+    </ul>
+</nav>

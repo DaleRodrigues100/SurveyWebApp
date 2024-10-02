@@ -1,0 +1,158 @@
+.bg-img{
+  display: flex;
+  justify-content: center;
+  height: 100vh;
+  width: 100vw;
+  max-width: 100%;
+  max-height: 100%;
+  left: 0;
+  top: 0;
+  position: relative;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.title{
+  font-family: 'Calibri', sans-serif;
+}
+.outline{
+  margin: 7% 0% 6% 0%;
+  background-color: white;
+  padding: 1% 1.5% 1.4% 1.5%;
+  border-radius: 5px;
+  font-family: 'Calibri', sans-serif;
+  min-height: fit-content;
+}
+
+.survey-list
+{
+  border: 2px solid black;
+  margin: 2px;
+  width: 100%;
+}
+
+th,td{
+  height: 40px;
+  border: 1px solid black;
+  border-collapse: collapse;
+  align-items: center;
+}
+
+tr:hover {
+  background-color: red;
+}
+
+.row-data{
+  text-align: center;
+}
+
+.table-css{
+  background-color: white;
+  padding: 5px;
+  border-radius: 5px;
+  min-width: 1000px;
+  min-height: fit-content;
+}
+
+
+
+.btn-back{
+  padding: 5px 20px 5px 20px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  background-color: #E92827;
+  color: white;
+  border:black;
+  border-width:5px;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 15%;
+  align-items: center;
+  opacity: 0.9;
+}
+
+.btn{
+
+  background-color: #E92827;
+  margin: 5px;
+  width: 15%;
+  color: white;
+}
+
+.btn-show-analysis{
+  padding: 10px;
+  margin-top: 10px;
+  background-color: #E92827;
+  color: white;
+  border:black;
+  border-width:5px;
+  border-radius: 5px;
+  align-items: center;
+  // opacity: 0.9;
+
+}
+
+.button-table{
+  padding: 5px 20px 5px 20px;// margin: 0px auto;
+  display: inline-block;
+
+}
+.buttons{
+  text-align: center;
+}
+
+.add-tab-button{
+  margin: 8px 8px 8px 3px;
+}
+
+.delete-tab-button {
+  margin: 8px 8px 8px 0px;
+}
+
+.question-heading{
+  align-content: flex-end;
+  margin: 3px;
+  font-size: 20px;
+}
+
+label,
+mat-label{
+  font-family: 'Calibri (Head)', sans-serif;
+}
+
+.survey-title,
+.question-title,
+.question-desc
+{
+  border: 1px solid black;
+  margin: 3px;
+}
+
+.question-desc,
+.option-desc
+{
+  width: 80%;
+  padding: 7px;
+  margin: 1% 1% 1% 1%;
+  border: 1px solid black;
+  border-radius: 5px;
+  background: #f1f1f1;
+}
+
+.add-new-option{
+  margin: 3px;
+}
+
+.question-body{
+  // height: 350px;
+  // overflow-y: scroll;
+}
+
+input{
+  width: 95%;
+  padding: 7px;
+  margin: 5px 5px 22px 5px;
+  border: 1px solid black;
+  border-radius: 5px;
+  background: #f1f1f1;
+}

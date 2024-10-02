@@ -1,0 +1,38 @@
+<div class="bg-img">
+  <div class="outline">
+    <div class="table-css">
+      <h1 style="color: #E92827; text-align: center;">List of Surveys</h1>
+      <div class="table">
+        <table class="survey-list">
+          <tr>
+
+            <th>Survey</th>
+            <th>Edit</th>
+            <th>Delete</th>
+            <th>View Results</th>
+            <th>Status</th>
+          </tr>
+
+
+
+          <tr *ngFor="let survey of surveys">
+
+            <td class="row-data">{{survey.surveyTitle}}</td>
+            <td class="row-data"><button (click)="editSurvey(survey)" [disabled]="survey.status === 'Completed'">Edit</button></td>
+            <td  class="row-data" (click)="Delete(survey)"><button>Delete</button></td>
+
+            <td class="row-data"><button (click)="viewResults(survey.surveyId)" [disabled]="survey.status === 'In Progress'">View Results</button></td>
+
+            <td  class="row-data">{{survey.status}}</td>
+
+          </tr>
+
+        </table>
+      </div>
+    </div>
+    <div>
+      <button (click)="createSurvey()" class="btn-create">Create Survey</button>
+      <button class="btn-back" (click)="backButton()">Back</button>
+    </div>
+  </div>
+</div>

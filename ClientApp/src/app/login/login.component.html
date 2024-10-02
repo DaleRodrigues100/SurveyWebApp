@@ -1,0 +1,26 @@
+<div>
+  <img class="b-img" src="assets\images\loginbackground.png" />
+</div>
+<div>
+  <img class="racecar-img" src="assets\images\racecar.png" />
+</div>
+
+<div class="login-body-section">
+  <form #loginForm='ngForm' (ngSubmit)="onLogin(loginForm)" class="login-form">
+
+    <h1 style="text-align:left; color: #E92827; font-weight: 450; "> Eazy Survey!</h1>
+    <h4 style="text-align:left"> Please Enter Your Credentials</h4>
+
+    <input type="text" placeholder="Enter Your Username" name="Username" ngModel class="form-control" required>
+    <input type="password" placeholder="Enter Password" name="Password" ngModel class="form-control" required>
+
+    <span *ngIf="hasError" class="error-block">
+      Invalid Information, please recheck and try again
+    </span>
+
+    <button type="submit" class="btn">Login</button>
+    <button type="reset" class="btn" (click)="onReset(loginForm)">Cancel</button>
+
+  </form>
+</div>
+

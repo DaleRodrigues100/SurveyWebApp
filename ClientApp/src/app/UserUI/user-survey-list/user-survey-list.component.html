@@ -1,0 +1,32 @@
+<div>
+  <div class="bg-img">
+    <div class="outline">
+      <div class="table-css">
+        <h1 style="color: #e92827; text-align: center">List of Surveys</h1>
+        <div class="table">
+          <table class="survey-list">
+            <tr>
+
+              <th>Surveys</th>
+              <th>Status</th>
+
+
+            </tr>
+
+            <tr *ngFor="let survey of surveys">
+
+              <td *ngIf="survey.status == 'Completed'" class="row-data">{{survey.surveyTitle}}</td>
+
+
+              <td  (click)="Start(survey)" *ngIf="survey.surveyStatus === false && survey.status == 'Completed' " class="row-data" ><button>Start</button></td>
+              <td  *ngIf="survey.surveyStatus === true && survey.status == 'Completed'"class="row-data" ><button>Completed</button></td>
+
+
+            </tr>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

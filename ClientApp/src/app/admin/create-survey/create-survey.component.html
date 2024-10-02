@@ -1,0 +1,58 @@
+
+<div class="bg-img">
+  <div class="outline">
+    <div class="table-css">
+      <h1 style="color: #e92827; text-align: center">Create a Survey</h1>
+      <div>
+        <div class="tabset">
+          <div class="">
+            <div>
+              <div class="question-heading">
+                <mat-label><b>Add a new Survey Title:</b></mat-label><br/>
+                <input matInput class="question-title" [(ngModel)]="questionList[0].surveyTitle" />
+              </div>
+              
+              <div>
+                <button mat-raised-buttonclass="add-tab-button" (click)="addQuestion()">
+                  Add new Question
+                </button>
+              </div>
+            </div>
+            <form>
+
+            </form>
+            <div class="question-body">
+              <mat-tab-group [selectedIndex]="selected.value" (selectedIndexChange)="selected.setValue($event)">
+                <mat-tab *ngFor="let question of questionList; let index = index" [label]="$any(index+1)">
+                  <!-- Contents for {{ question.title }} question<br /> -->
+                  <label><b>Question:</b></label>
+                  <input matInput [(ngModel)]="question.question" class="question-desc" /><br />
+                  <button mat-raised-button class="add-new-option" (click)="addOptionToQuestion(question)">
+                    Add New Option +
+                  </button>
+                  <div *ngFor="let option of question.options; let i = index; trackBy:trackByIdx">
+                    <label><b>Option {{i+1}}: </b></label>
+                    <input matInput class="option-desc" [(ngModel)]="question.options[i]" />
+                    <button mat-raised-button class="delete-tab-button" (click)="removeOption(question, i)">
+                      X
+                    </button>
+                  </div>
+                  <br />
+                  <button mat-raised-button class="delete-tab-button" [disabled]="questionList.length === 1"
+                    (click)="removeTab(index)">
+                    Delete Question
+                  </button>
+                </mat-tab>
+              </mat-tab-group>
+            </div>
+            <div class="buttons">
+              <button (click)="Save()" class="btn-create">Save Survey</button>
+              <button (click)="Publish()" class="btn-create">Publish Survey</button>
+              <button class="btn-back" (click)="backButton()">Back</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

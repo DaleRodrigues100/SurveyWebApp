@@ -1,0 +1,63 @@
+<div class="bg-img">
+  <div class="outline">
+    <div class="table-css">
+      <h1 style="color: #e92827; text-align: center">View Survey Results</h1>
+        <div class="tabset">
+          <div class="question-heading">
+            <!-- <mat-label><b>Survey Title: {{surveys[0].surveyTitle}} </b></mat-label> -->
+          </div><br/>
+
+          <button class="btn" (click)="hideTable()">Toggle Table</button>
+
+          <div class="question-body">
+            <table class="table" *ngIf="toggle_table">
+              <tr>
+                <th>Questions</th>
+                <th>Responses</th>
+                <th>User</th>
+              </tr>
+              <tr *ngFor="let survey of surveys;">
+                <td class="row-data">{{survey.question}}</td>
+                <td class="row-data">{{survey.optionList}}</td>
+                <td class="row-data">{{survey.username}}</td>
+              </tr>
+            </table>
+
+            <div class="button-table" *ngFor="let chartDataset of chartDatasets; let index = index">
+              <button *ngIf="toggle_view" class="btn-show-analysis " (click)="showCharts(index)"> Question {{index+1}} Statistics</button>
+            </div>
+
+
+            <div *ngIf="displayChart">
+              <div style="display: block">
+                <div class = "q-title">
+                  <h1>Question {{question_index+1}} Statistics:</h1><br/>
+                </div>
+                <button *ngIf="!toggle_view" class="btn" (click)="closeCharts()"> Hide Statistics</button>
+                <button class="btn" (click)="toggleChart()">Toggle Chart</button>
+                <canvas mdbChart
+                  [chartType]="chart_type"
+                  [datasets]="chartDatasets[question_index]"
+                  [labels]="chartLabels[question_index]"
+                  [colors]="chartColors"
+                  [options]="chartOptions"
+                  [legend]="true"
+                  (chartHover)="chartHovered($event)"
+                  (chartClick)="chartClicked($event)">
+                </canvas>
+              </div>
+          </div>
+
+          </div>
+
+          <div class="buttons">
+            <button class="btn" (click)="backButton()">Back</button>
+          </div>
+
+
+          </div>
+
+      </div>
+    </div>
+
+  </div>

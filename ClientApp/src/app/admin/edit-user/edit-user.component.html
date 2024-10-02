@@ -1,0 +1,26 @@
+<div class="login-screen">
+  <div class="login-body-section">
+    <form class="login-form" #editUserForm='ngForm' (ngSubmit)="onSubmit(editUserForm)">
+
+      <h1 style="text-align:center; color: #E92827;"> Change Password</h1><br/><br/>
+
+      <label><b>New Password:</b></label>
+      <input type="password" placeholder="Enter Password" name="Password" ngModel class="form-control" required>
+
+      <span *ngIf="userEdited" class="error-block">
+        Password changed!
+      </span>
+
+      <span *ngIf="error" class="error-block">
+        An error occured, try again
+      </span>
+
+      <span *ngIf="missedField" class="error-block">
+        Please fill in the password field
+      </span>
+
+      <button type="submit" class="btn">Edit User</button><br/>
+      <button type="reset" class="btn" (click)="Back()">Back</button>
+    </form>
+  </div>
+</div>

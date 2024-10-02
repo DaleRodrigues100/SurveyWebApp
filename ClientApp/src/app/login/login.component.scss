@@ -1,0 +1,63 @@
+.b-img {
+  height: 100%;
+  width: 50%;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  z-index: 1;
+  box-shadow: 0px 0px 10px 10px rgba(0,0,0,0.6);
+}
+
+.racecar-img {
+  position: absolute;
+  z-index: 10;
+  bottom: 0%;
+  height: 40%;
+}
+
+.login-body-section {
+  position: absolute;
+  top: 25%;
+  left: 62%;
+  z-index: 5;
+  background-color: white;
+  font-family: 'Calibri', sans-serif;
+  width: 25%;
+}
+
+input[type=text], input[type=password] {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  /* border-color:gray;
+  border-width: 5px; */
+  border-radius: 5px;
+  background: #f1f1f1;
+}
+
+.btn {
+  background-color: #E92827;
+  color: white;
+  padding: 20px;
+  margin: 2px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-top: 5px;
+  width: 48.5%;
+  opacity: 0.9;
+}
+
+.btn:hover {
+  opacity: 1;
+}
+
+.logo-img {
+  position: absolute;
+  top: 5%;
+  left: 65%;
+  height: 10%;
+  z-index: 3;
+}
+
+
