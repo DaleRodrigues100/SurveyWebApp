@@ -1,81 +1,83 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using XSLearning.Models;
-using Microsoft.Data.SqlClient;
-using System.Configuration;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using XSLearning.DTOs;
+using XSLearning.Services;
 
 namespace XSLearning.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class UserController : ControllerBase
-    
     {
-        private readonly DataContext dc;
-        private readonly SqlConnection connection;
-        public UserController(DataContext dc, IConfiguration configuration)
+        private readonly ISurveyService _surveyService;
+        private readonly IResponseService _responseService;
+
+        public UserController(ISurveyService surveyService, IResponseService responseService)
         {
-            this.dc = dc;
-            
-            this.connection = new SqlConnection(configuration.GetConnectionString("DevConnection"));
+            _surveyService = surveyService;
+            _responseService = responseService;
         }
 
-      
-        // For list of surveys tables
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Surveys>>> GetSurveysnStatus()
+        /// <summary>
+        /// Gets all available surveys for users to participate in
+        /// </summary>
+        /// <returns>List of surveys with their status</returns>
+        [HttpGet("surveys")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult<IEnumerable<SurveyDto>>> GetAvailableSurveys()
         {
-            var surveys = await this.dc.Surveys.ToListAsync();
-            var status = await this.dc.Responses.ToListAsync();
-            List<object> arr = new List<object>();
-            arr.Add(surveys);
-            arr.Add(status);
-
-            return Ok(arr);
+            var surveys = await _surveyService.GetAllSurveysAsync();
+            return Ok(surveys);
         }
 
-        // Get the survey the user selected
-
-
-        // User submit survey
-   
-        [HttpPost]
-        public async Task<ActionResult<Surveys>> SubmitResponse(Responses response)
+        /// <summary>
+        /// Gets a specific survey by ID
+        /// </summary>
+        /// <param name="surveyId">Survey ID to retrieve</param>
+        /// <returns>Survey details with questions and options</returns>
+        [HttpGet("surveys/{surveyId}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<SurveyDto>> GetSurvey(int surveyId)
         {
-            this.dc.Responses.Add(response);
-            await this.dc.SaveChangesAsync();
-            return Ok(response);
+            var survey = await _surveyService.GetSurveyByIdAsync(surveyId);
+            if (survey == null)
+                return NotFound(new { message = $"Survey with ID {surveyId} not found" });
 
+            return Ok(survey);
         }
 
+        /// <summary>
+        /// Submits a user's response to a survey
+        /// </summary>
+        /// <param name="responseDto">User's survey responses</param>
+        /// <returns>Status of the submission</returns>
+        [HttpPost("submit")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult> SubmitResponse(SubmitResponseDto responseDto)
+        {
+            var result = await _responseService.SubmitResponseAsync(responseDto);
+            if (!result)
+                return BadRequest(new { message = "Failed to submit response. Survey may not exist, or you may have already responded." });
 
+            return Ok(new { message = "Survey response submitted successfully" });
+        }
+
+        /// <summary>
+        /// Checks if a user has already responded to a specific survey
+        /// </summary>
+        /// <param name="username">Username to check</param>
+        /// <param name="surveyId">Survey ID to check</param>
+        /// <returns>Boolean indicating if user has already responded</returns>
         [HttpGet("{username}/{surveyId}")]
-        public ActionResult<bool> CheckResponded(string username, int surveyId)
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult<bool>> CheckResponded(string username, int surveyId)
         {
-            this.connection.Open();
-            
-            string q = "SELECT * FROM Responses WHERE SurveyId LIKE @Number AND Username Like @String";
-            SqlCommand com = new SqlCommand(q, this.connection);
-
-            com.Parameters.AddWithValue("@Number", surveyId);
-            com.Parameters.AddWithValue("@String", username);
-
-            SqlDataReader reader = com.ExecuteReader();
-            List<Responses> list = new List<Responses>();
-
-            return reader.Read();
+            var hasResponded = await _responseService.HasUserRespondedAsync(username, surveyId);
+            return Ok(hasResponded);
         }
-
-
-
-
-
     }
-
-   
-        
-
-        
-    }
-
+}

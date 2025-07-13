@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using XSLearning.Models;
+using XSLearning.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,9 +9,12 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddDbContext<DataContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DevConnection")));
-
-builder.Services.AddCors();
+// Configure services using extension methods
+builder.Services.ConfigureDbContext(builder.Configuration);
+builder.Services.ConfigureRepositories();
+builder.Services.ConfigureServices();
+builder.Services.ConfigureCors();
+builder.Services.ConfigureAuthentication();
 
 var app = builder.Build();
 
@@ -24,9 +28,11 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
-app.UseCors(m => m.WithOrigins("https://localhost:44478", "https://localhost:8443").AllowAnyHeader().AllowAnyMethod());
+app.UseCors("AllowSpecificOrigins");
 
-
+// Add authentication and authorization middleware
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
